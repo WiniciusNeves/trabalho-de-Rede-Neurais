@@ -38,12 +38,16 @@ scaler = MinMaxScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
-# Exibir informações sobre os conjuntos
-print(f"Total de amostras no conjunto de treinamento: {X_train_scaled.shape[0]}")
-print(f"Total de amostras no conjunto de teste: {X_test_scaled.shape[0]}")
+# Converter os arrays escalados para DataFrames para salvar como CSV
+X_train_scaled_df = pd.DataFrame(X_train_scaled, columns=["Variance", "Skewness", "Curtosis", "Entropy"])
+X_test_scaled_df = pd.DataFrame(X_test_scaled, columns=["Variance", "Skewness", "Curtosis", "Entropy"])
+y_train_df = pd.DataFrame(y_train, columns=["Class"])
+y_test_df = pd.DataFrame(y_test, columns=["Class"])
 
-# Salvar os dados pré-processados
-np.save("X_train_scaled.npy", X_train_scaled)
-np.save("y_train.npy", y_train.to_numpy())  # Converter para array NumPy
-np.save("X_test_scaled.npy", X_test_scaled)
-np.save("y_test.npy", y_test.to_numpy())    # Converter para array NumPy
+# Salvar os dados pré-processados em CSV
+X_train_scaled_df.to_csv("X_train_scaled.csv", index=False)
+y_train_df.to_csv("y_train.csv", index=False)
+X_test_scaled_df.to_csv("X_test_scaled.csv", index=False)
+y_test_df.to_csv("y_test.csv", index=False)
+
+print("Arquivos CSV gerados com sucesso!")

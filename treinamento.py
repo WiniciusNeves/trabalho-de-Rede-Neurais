@@ -1,15 +1,15 @@
-import numpy as np
+import pandas as pd
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout
 from tensorflow.keras.callbacks import EarlyStopping
 from sklearn.metrics import classification_report, confusion_matrix
 
-# Carregar os dados
-X_train_scaled = np.load("X_train_scaled.npy")
-y_train = np.load("y_train.npy")
-X_test_scaled = np.load("X_test_scaled.npy")
-y_test = np.load("y_test.npy")
+# Carregar os dados salvos como CSV
+X_train_scaled = pd.read_csv("X_train_scaled.csv").values
+y_train = pd.read_csv("y_train.csv").values.ravel()
+X_test_scaled = pd.read_csv("X_test_scaled.csv").values
+y_test = pd.read_csv("y_test.csv").values.ravel()
 
 # Definir a arquitetura da Rede Neural com Dropout
 model = Sequential([
